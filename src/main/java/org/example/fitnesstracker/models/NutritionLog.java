@@ -1,10 +1,18 @@
 package org.example.fitnesstracker.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Setter
+@Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class NutritionLog {
     @Id
     @GeneratedValue
@@ -17,5 +25,5 @@ public class NutritionLog {
     private String notes;
 
     @ManyToOne
-    private User user;
+    private Users users;
 }

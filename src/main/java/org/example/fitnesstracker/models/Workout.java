@@ -1,12 +1,20 @@
 package org.example.fitnesstracker.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Workout {
     @Id
     @GeneratedValue
@@ -17,8 +25,8 @@ public class Workout {
     @ManyToOne
     private TypeOfExercise typeOfExercise; // Наприклад: Cardio, Strength
     @ManyToOne
-    private User user;
+    private Users users;
 
-    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL.ALL)
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
     private List<Exercise> exercises;
 }

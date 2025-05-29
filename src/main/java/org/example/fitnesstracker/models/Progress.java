@@ -4,10 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Setter
+@Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Progress {
     @Id
     @GeneratedValue
@@ -17,5 +25,5 @@ public class Progress {
     private Double bodyFatPercentage; // optional
 
     @ManyToOne
-    private User user;
+    private Users users;
 }

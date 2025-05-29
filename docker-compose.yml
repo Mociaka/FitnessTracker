@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16          # Актуальна LTS-версія
+    container_name: fitness-db  # Зручний читабельний псевдонім
+#    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fitness        # назва бази за замовчуванням
+      POSTGRES_USER: fitness_app  # користувач (змінити за потреби)
+      POSTGRES_PASSWORD: secret   # пароль (зберігати поза Git — .env)
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"               # <локальний>:<в контейнері>
+    volumes:
+      # ПЕРСИСТЕНТНЕ ЗБЕРЕЖЕННЯ: усе, що лежить у PGDATA, писатиметься
+      # у ./postgres-data, яка створиться поруч із docker-compose.yml
+      - ./postgres-data:/var/lib/postgresql/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#      start_period: 15s
+
+networks:
+  default:
+    name: fitness-network
