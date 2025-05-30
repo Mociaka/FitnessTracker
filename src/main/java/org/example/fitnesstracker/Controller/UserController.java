@@ -1,13 +1,11 @@
 package org.example.fitnesstracker.Controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.fitnesstracker.DTO.UsersDTOUpload;
 import org.example.fitnesstracker.Service.UserService;
 import org.example.fitnesstracker.models.Users;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,13 +18,24 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable long id) {
-        Users byId = userService.findById(id);
-        return ResponseEntity.ok(byId);
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<Users>> getUsers() {
         return ResponseEntity.ok(userService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody UsersDTOUpload user) {
+        userService.save(user);
+        return ResponseEntity.ok("User created");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable long id) {
+        userService.delete(id);
+        return ResponseEntity.ok("User deleted");
     }
 
 }
