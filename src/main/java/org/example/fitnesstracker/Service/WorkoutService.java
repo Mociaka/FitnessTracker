@@ -30,7 +30,7 @@ public class WorkoutService {
                 null,
                 upload.getDate(),
                 upload.getNotes(),
-                upload.getTypeOfExercise(),
+                upload.getType(),
                 user,
                 null
         ));

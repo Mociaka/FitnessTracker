@@ -22,8 +22,7 @@ public class Workout {
     private LocalDate date;
     private String notes;
 
-    @ManyToOne
-    private TypeOfExercise typeOfExercise; // Наприклад: Cardio, Strength
+    private String type; // Наприклад: Cardio, Strength
     @ManyToOne
     private Users users;
 

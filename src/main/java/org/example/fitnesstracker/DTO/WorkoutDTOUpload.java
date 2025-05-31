@@ -16,7 +16,7 @@ public class WorkoutDTOUpload {
     private LocalDate date;
     private String notes;
 
-    private TypeOfExercise typeOfExercise; // Наприклад: Cardio, Strength
+    private String type; // Наприклад: Cardio, Strength
 
 //    private List<Exercise> exercises;
 

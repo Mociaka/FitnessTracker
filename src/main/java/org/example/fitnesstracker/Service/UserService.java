@@ -5,7 +5,9 @@ import org.example.fitnesstracker.DTO.UserCredential;
 import org.example.fitnesstracker.DTO.UsersDTOUpload;
 import org.example.fitnesstracker.exception.NotFoundDatabaseException;
 import org.example.fitnesstracker.exception.UserAlreadyExistsException;
+import org.example.fitnesstracker.models.NutritionLog;
 import org.example.fitnesstracker.models.Users;
+import org.example.fitnesstracker.models.Workout;
 import org.example.fitnesstracker.repository.UserRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,4 +68,15 @@ public class UserService {
         return userRepo.findByEmail(email).orElseThrow(()->
                 new NotFoundDatabaseException("User with email " + email + " not found"));
     }
+
+    public List<Workout> getUserWorkouts(String email) {
+        Users user = findByEmail(email);
+        return user.getWorkouts(); // або mapper до DTO, якщо потрібно
+    }
+
+    public List<NutritionLog> getUserNutritions(String email) {
+        Users user = findByEmail(email);
+        return user.getNutritionLogs(); // або mapper до DTO
+    }
+
 }

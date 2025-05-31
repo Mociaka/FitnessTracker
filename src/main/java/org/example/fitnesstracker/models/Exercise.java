@@ -1,5 +1,6 @@
 package org.example.fitnesstracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,5 +25,9 @@ public class Exercise {
     private Double weight; // optional
 
     @ManyToOne
+    private TypeOfExercise typeOfExercise;
+
+    @ManyToOne
+    @JsonIgnore
     private Workout workout;
 }
