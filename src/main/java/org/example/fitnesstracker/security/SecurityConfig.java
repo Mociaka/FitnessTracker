@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("api/v1/exercise/**").hasRole("USER")
                         .requestMatchers( HttpMethod.GET, "api/v1/type-of-exercise").permitAll()
                         .requestMatchers("api/v1/type-of-exercise/**", "api/v1/type-of-exercise").hasRole("USER")
+                        .requestMatchers("api/v1/nutrition/**", "api/v1/nutrition").hasRole("USER")
                 )
                 .formLogin(formlogin -> formlogin.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
