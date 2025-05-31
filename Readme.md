@@ -1,9 +1,19 @@
-Завдання 3: Веб-фітнес трекер (Spring Boot + DB)
-Опис: Розробити повноцінний веб-додаток для фітнес-трекера з використанням фреймворку Spring Boot, який буде надавати REST API та, за бажанням, базовий інтерфейс.
+# Завдання 3: Веб-фітнес трекер (Spring Boot + DB)
 
-як працювати з застосунком:
-1) створюємо користувача по endpoint ```/api/v1/user/register``` POST запитом з тілом:
-```
+## Опис
+
+Розроблено повноцінний веб-додаток для фітнес-трекера з використанням фреймворку **Spring Boot**, який надає **REST API** для реєстрації користувачів, ведення тренувань, цілей, та контролю харчування.
+(Опційно можливо реалізувати інтерфейс користувача.)
+
+---
+
+## Як працювати з застосунком
+
+### 1. Реєстрація користувача
+
+**POST** `/api/v1/user/register`
+
+```json
 {
   "username": "new user",
   "email": "Email@gmail.com",
@@ -12,29 +22,68 @@
   "height": 190,
   "birthDate": "2005-05-14"
 }
-``` 
-2) після стоворення користувача  ми отримуємо JWT-token виглядає як: ```eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJlbWFpbCI6IkVlZTJtYWlsQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1VTRVIiLCJpYXQiOjE3NDg2OTIwNTUsImlzcyI6Ik1vY2lha2FEZW55cyIsImV4cCI6MTc4NDY5MjA1NX0.yMPgejndC_6ZJsIHsFhYGMpZUYUlCjC-kXjZpZlIod8```
-ми хочемо створить тренування(wokrout) для цього по endpoint ```/api/v1/user/register``` POST запитом з тілом:
 ```
+
+У відповідь ви отримаєте **JWT-токен**, наприклад:
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+>  **Усі подальші запити потребують заголовка:**
+
+```
+Authorization: Bearer {JWT-token}
+```
+
+---
+
+### 2.  Створення тренування (Workout)
+
+ **POST** `/api/v1/workout`
+
+```json
 {
   "date": "2025-05-31",
   "notes": "Trained chest and back",
   "type": "streng"
 }
 ```
-ОБОВ'ЯЗКОВО повинен буди заголовок Authorization з ``Bearer {JWT-token}``</p>
-typeOfExercise - ми може дізнатися з endpoint ```/api/v1/user/register``` GET запитом 
-або створить самим по ```/api/v1/user/register``` POST запитом з тілмо: 
-```
+
+---
+
+### 3.  Перегляд типів вправ
+
+ **GET** `/api/v1/type-of-exercise`
+(Повертає список типів фізичних навантажень)
+
+---
+
+### 4.  Додавання нового типу вправи
+
+ **POST** `/api/v1/type-of-exercise`
+
+```json
 {
-  "activity":"swim",
-  "met":8.0
+  "activity": "swim",
+  "met": 8.0
 }
 ```
-3) Створивши workout, ми можемо подивися свої уже створенні workouts ```/api/v1/user/workouts``` GET запитом.</p>
-нам потрібно id для створення запису тренування(exercise) </p>
-Робимо запит на endpoint ```/api/v1/exercise``` POST з тілом:
-```
+
+---
+
+### 5.  Перегляд своїх тренувань
+
+ **GET** `/api/v1/workout`
+(Повертає список усіх створених вами тренувань)
+
+---
+
+### 6. ️ Додавання вправи (Exercise) до тренування
+
+**POST** `/api/v1/exercise`
+
+```json
 {
   "name": "run",
   "sets": 1,
@@ -45,9 +94,61 @@ typeOfExercise - ми може дізнатися з endpoint ```/api/v1/user/re
 }
 ```
 
+---
 
+### 7. Видалення вправи
 
+**DELETE** `/api/v1/exercise/{id}`
 
+---
 
+### 8.  Додавання раціону (Nutrition)
 
+ **POST** `/api/v1/nutrition`
+
+```json
+{
+  "date": "2025-05-31",
+  "calories": 2000,
+  "protein": 100,
+  "carbs": 50,
+  "fat": 500,
+  "notes": "fast food"
+}
+```
+
+---
+
+### 9.  Перегляд раціону
+
+ **GET** `/api/v1/nutrition`
+(Повертає список усіх записів харчування)
+
+---
+
+### 10. Цілі (Goals)
+
+ **POST** `/api/v1/goal`
+
+```json
+{
+  "title": "Lose 5kg",
+  "description": "Goal for summer",
+  "deadline": "2025-07-01"
+}
+```
+
+ **GET** `/api/v1/goal` — перегляд усіх цілей
+ **PATCH** `/api/v1/goal/{id}/achieve` — позначити ціль як досягнуту
+
+---
+
+## ️ Технічний стек
+
+* Java 17
+* Spring Boot 3
+* Spring Security + JWT
+* PostgreSQL
+* Lombok
+* Maven
 
