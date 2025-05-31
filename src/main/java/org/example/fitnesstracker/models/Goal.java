@@ -1,9 +1,7 @@
 package org.example.fitnesstracker.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +16,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Goal {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String title;
     private String description;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Boolean achieved;
+
+    private LocalDate targetDate;
+
+    private boolean achieved;
 
     @ManyToOne
+    @JsonIgnore
     private Users users;
 }
